@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  backend:
+    build:
+      context: ./docker/node/
+      dockerfile: ./Dockerfile
+    restart: 'no'
+    ports:
+      - 3001:3000
+    volumes:
+      - ./backend:/app:cached
+      - ./serve-be.sh:/serve.sh
+    command: ["bash", "/serve.sh"]
+
+  frontend:
+    build:
+      context: ./docker/node/
+      dockerfile: ./Dockerfile
+    restart: 'no'
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app:cached
+      - ./serve-fe.sh:/serve.sh
+    command: ["bash", "/serve.sh"]
